@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.OrderMapper">
+
+    <!--<select id="bootstraptree" parameterType="int">
+		SELECT *, url as href from b_tree where pid=#{value}
+    </select>-->
+    <!--//bootstrap分页查询-->
+    <select id="getList"  resultType="com.jk.pojo.Goods">
+        select * from t_ssss
+    </select>
+
+    <!--删除，批量删除-->
+    <delete id="deleteName" parameterType="int">
+        delete from t_ssss where id in (
+        <foreach collection="array" item="item" index="index" separator=",">
+            ${item}
+        </foreach>
+        )
+    </delete>
+     <!--新增-->
+    <insert id="saveUser" parameterType="com.jk.pojo.Goods">
+        insert into t_ssss(name,age,sex,shouji,aihao,kucun,baosunshu)
+        values
+        (#{name},#{age},#{sex},#{shouji},#{aihao},#{kucun},#{baosunshu})
+        <selectKey resultType="int" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+
+    <!--&lt;!&ndash; 回显 &ndash;&gt;
+    <select id="echo" parameterType="int" resultType="com.jk.bean.Goods">
+        select t.id,t.name,t.age,t.sex,t.shouji,t.aihao,t.kucun,t.baosunshu
+        from t_ssss t where t.id =#{value}
+    </select>
+
+
+    &lt;!&ndash; 修改 &ndash;&gt;
+    <update id="updateUser" parameterType="com.jk.bean.Goods">
+        update t_ssss t set
+        t.name = #{name},
+        t.age = #{age},
+        t.sex = #{sex},
+        t.shouji = #{shouji},
+        t.aihao = #{aihao},
+        t.kucun = #{kucun}- #{baosunshu},
+        t.baosunshu = #{baosunshu}
+        where t.id = #{id}
+    </update>-->
+
+</mapper>

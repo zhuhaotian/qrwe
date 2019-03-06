@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <!-- 引入核心js -->
+    <script src="/js/jquery-1.9.1.min.js"></script>
+    <!-- bootstrap  -->
+    <script src="/js/bootstrap/bootstrap3/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap/bootstrap3/css/bootstrap.css"/>
+    <!-- 左侧导航树 -->
+    <link rel="stylesheet" href="/js/bootstrap/bootstrap-treeview/bootstrap-treeview.min.css">
+    <script src="/js/bootstrap/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+    <!-- 选项卡 -->
+    <link rel="stylesheet" href="/js/bootstrap/bootStrap-addTabs/bootstrap.addtabs.css">
+    <script src="/js/bootstrap/bootStrap-addTabs/bootstrap.addtabs.min.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap/bootstrap-table/bootstrap-table.css">
+    <script src="/js/bootstrap/bootstrap-table/bootstrap-table.js"></script>
+    <script src="/js/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="/js/bootstrap/bootstrap-bootbox/bootbox.js"></script>
+    <script src="/js/bootstrap/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="/js/bootstrap/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <script src="/js/bootstrap/bootstrap-fileinput/js/fileinput.js"></script>
+    <script src="/js/bootstrap/bootstrap-fileinput/js/locales/zh.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap/bootstrap-fileinput/css/fileinput.css">
+    <title>新增</title>
+</head>
+<style>
+    .row {
+        margin-top: 5px;
+    }
+</style>
+<body>
+<div class="container-fluid">
+    <form id="addForm" class="form-horizontal" method="post">
+        <div class="row">
+            <div class="col-xs-2">姓名：</div>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" name="name">
+            </div>
+            <div class="col-xs-2">年龄：</div>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" name="age">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">性别：</div>
+            <div class="col-xs-4">
+                <input type="radio" name="sex" value="0">男
+                <input type="radio" name="sex" value="1">女
+            </div>
+            <div class="col-xs-2">手机号码：</div>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" name="shouji">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">爱好：</div>
+            <div class="col-xs-10">
+                <textarea rows="" cols="" class="form-control" name="aihao"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">总库存：</div>
+            <div class="col-xs-10">
+                <textarea rows="" cols="" class="form-control" name="kucun"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">报损数：</div>
+            <div class="col-xs-10">
+                <textarea rows="" cols="" class="form-control" name="baosunshu"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script type="text/javascript">
+    /* 页面加载 */
+    $(function () {
+    })
+
+    /* 时间格式 */
+    $('.date').datetimepicker({
+        language: 'zh-CN',//显示中文
+        format: 'yyyy-mm-dd',//显示格式
+        minView: "month",//设置只显示到月份
+        initialDate: new Date(),//初始化当前日期
+        autoclose: true,//选中自动关闭
+        todayBtn: true//显示今日按钮
+    });
+
+    /* 图片 */
+    $('#headImgk').fileinput({
+        language: 'zh', //设置语言
+        uploadUrl: '/user/upload', //上传的地址
+        allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
+        showUpload: true, //是否显示上传按钮
+        showCaption: false,//是否显示标题
+        browseClass: "btn btn-primary", //按钮样式
+        //dropZoneEnabled: false,//是否显示拖拽区域
+        //minImageWidth: 50, //图片的最小宽度
+        //minImageHeight: 50,//图片的最小高度
+        //maxImageWidth: 1000,//图片的最大宽度
+        //maxImageHeight: 1000,//图片的最大高度
+        //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+        //minFileCount: 0,
+        maxFileCount: 2, //表示允许同时上传的最大文件个数
+        enctype: 'multipart/form-data',
+        validateInitialCount: true,
+        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+        msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+
+    }).on('fileuploaded', function (event, data, previewId, index) {
+        var imgval = $('#testimg').val();
+        if (imgval == null || imgval == "" || imgval == undefined) {
+            imgval = "http://" + data.response.img;
+        } else {
+            imgval += "," + "http://" + data.response.img;
+        }
+        $('#testimg').val(imgval);
+    });
+</script>
+</html>
